@@ -9,6 +9,7 @@ namespace Game
         public Matrix4Uniform ModelviewMatrix { get; private set; }
 
         public IndexedSurface<PrimitiveVertexData> Primitives { get; private set; }
+        public IndexedSurface<UVColorVertexData> Text { get; private set; }
 
         public SurfaceManager(ShaderManager shaderMan)
         {
@@ -18,11 +19,17 @@ namespace Game
 
             // create shaders
             shaderMan.MakeShaderProgram("primitives");
+            shaderMan.MakeShaderProgram("uvcolor");
 
             // surfaces
             this.Primitives = new IndexedSurface<PrimitiveVertexData>();
             this.Primitives.AddSettings(this.ProjectionMatrix, this.ModelviewMatrix);
             shaderMan["primitives"].UseOnSurface(this.Primitives);
+
+            this.Text = new IndexedSurface<UVColorVertexData>();
+            this.Text.AddSettings(this.ProjectionMatrix, this.ModelviewMatrix,
+                new TextureUniform("diffuseTexture", new Texture("data/fonts/inconsolata.png", true)));
+            shaderMan["uvcolor"].UseOnSurface(this.Text);
 
         }
 

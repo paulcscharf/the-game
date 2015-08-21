@@ -1,4 +1,5 @@
-﻿using amulware.Graphics.ShaderManagement;
+﻿using amulware.Graphics;
+using amulware.Graphics.ShaderManagement;
 using Bearded.Utilities.Math;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -75,7 +76,11 @@ namespace Game
 
         public void FinaliseFrame()
         {
+            SurfaceDepthMaskSetting.DontMask.Set(null);
+            SurfaceBlendSetting.PremultipliedAlpha.Set(null);
+
             this.surfaces.Primitives.Render();
+            this.surfaces.Text.Render();
         }
     }
 }
