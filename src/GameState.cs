@@ -11,6 +11,11 @@ namespace Game
 
         public Instant Time { get { return this.time; } }
 
+        public GameState()
+        {
+            
+        }
+
         public void Add(GameObject gameObject)
         {
             this.gameObjects.Add(gameObject);
